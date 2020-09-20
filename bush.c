@@ -11,9 +11,7 @@ pid_t p3=0;
 int main(int argc, char * argv[]) 
 {
     int fd[2];
-    pipe(fd);
-    //mlfifo("ff");
-    //int fd = open("ff", O_RDWR);    
+    pipe(fd);  
 
     pid_t ppid;
     ppid = getpid();
@@ -24,7 +22,8 @@ int main(int argc, char * argv[])
     p2 = fork();
     ppid = getpid();
 
-    if(ppid != p1) {
+    if(ppid != p1) 
+    {
         p2 = ppid;
         printf("P2 pid: %d\n", p2);
         printf("Parent: %d, Group: %d, Session: %d\n\n", getppid(), getgid(), getsid(getpid()) );
@@ -33,12 +32,14 @@ int main(int argc, char * argv[])
         close(fd[1]);
         execl("/bin/ls", "ls", "-la", NULL);
     }
-// /usr/bin/
-    if(ppid != p2){
+
+    if(ppid != p2)
+    {
         p3 = fork();
         ppid = getpid();
 
-        if((ppid != p1)&&(ppid != p2)) {
+        if((ppid != p1)&&(ppid != p2)) 
+        {
             p3 = ppid;
             printf("P3 pid: %d\n", p3);
             printf("Parent: %d, Group: %d, Session: %d\n\n", getppid(), getgid(), getsid(getpid()) );
